@@ -54,13 +54,14 @@ Data Chautari is a web application designed to provide an intuitive and interact
 ## Screenshots
 
 ### Dashboard View
-![Dashboard Screenshot](screenshots/dashboard.png)
+![Dashboard Screenshot](screenshots/a.png)
 
 ### Data Visualization Example
-![Data Visualization](screenshots/data-visualization.png)
+![Data Visualization](screenshots/b.png)
+![Data Visualization](screenshots/d.png)
 
 ### Table Display Example
-![Table View](screenshots/table-view.png)
+![Table View](screenshots/c.png)
 
 ## Usage
 1. Preprocess the dataset using the provided Python scripts.
