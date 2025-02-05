@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual Environments
+venv/
+env/
+.env/
+.venv/
+
+# Flask
+instance/
+.webassets-cache
+
+# Python virtual environments
+Backend/.vnev/
+Backend/venv/
+Backend/.env/
+Backend/.venv/

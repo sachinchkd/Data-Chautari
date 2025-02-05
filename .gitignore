@@ -1,0 +1,43 @@
+# Python
+**/__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual Environments
+**/venv/
+**/env/
+**/.env/
+**/.venv/
+**/.vnev/
+
+# Frontend
+Frontend/dist
+Frontend/dist-ssr
+Frontend/*.local
+Frontend/node_modules/
+
+# Backend
+Backend/instance/
+Backend/.webassets-cache
+
+# Node modules
+**/node_modules/
+
+# Environment files
+**/*.env
+!**/.env.example
+
+# Editor directories and files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+**/*.log
