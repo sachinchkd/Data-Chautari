@@ -1,8 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { DataRow } from '../types/types';
 
+const API_BASE_URL = (import.meta.env.VITE_API_URL || '/api').replace(/\/$/, '');
+
 const fetchData = async (): Promise<DataRow[]> => {
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/data`);
+  const response = await fetch(`${API_BASE_URL}/data`);
+  
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
