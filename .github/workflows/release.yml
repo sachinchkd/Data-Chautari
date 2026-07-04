@@ -1,0 +1,89 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-release:
+    name: Build Release Artifacts
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Backend setup
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install backend dependencies
+        working-directory: Backend
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Check backend app
+        working-directory: Backend
+        run: |
+          python -c "from app.app import app; print('Backend release check passed')"
+
+      # Frontend setup
+      - name: Set up PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "pnpm"
+          cache-dependency-path: Frontend/pnpm-lock.yaml
+
+      - name: Install frontend dependencies
+        working-directory: Frontend
+        run: pnpm install 
+
+      - name: Build frontend
+        working-directory: Frontend
+        env:
+          VITE_API_URL: https://data-chautari-backend.onrender.com/api
+        run: pnpm run build
+
+      # Package artifacts
+      - name: Package frontend build
+        run: |
+          cd Frontend
+          zip -r ../frontend-dist.zip dist
+
+      - name: Package backend
+        run: |
+          zip -r backend-api.zip Backend \
+            -x "Backend/.venv/*" \
+            -x "Backend/__pycache__/*" \
+            -x "Backend/**/__pycache__/*"
+
+      - name: Upload release artifacts to workflow
+        uses: actions/upload-artifact@v4
+        with:
+          name: data-chautari-release
+          path: |
+            frontend-dist.zip
+            backend-api.zip
+
+      - name: Create GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            frontend-dist.zip
+            backend-api.zip
+          generate_release_notes: true
