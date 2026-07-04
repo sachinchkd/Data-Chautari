@@ -50,7 +50,7 @@ jobs:
 
       - name: Install frontend dependencies
         working-directory: Frontend
-        run: pnpm install --frozen-lockfile
+        run: pnpm install 
 
       - name: Build frontend
         working-directory: Frontend
