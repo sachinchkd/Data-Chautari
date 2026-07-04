@@ -23,6 +23,23 @@ else:
     data = None
     print(f"CSV file not found at {csv_file_path}")
 
+@app.route("/", methods=["GET"])
+def home():
+    return jsonify({
+        "message": "Data Chautari Backend is running",
+        "health": "/api/health",
+        "data": "/api/data"
+    })
+
+
+@app.route("/api/health", methods=["GET"])
+def health():
+    return jsonify({
+        "status": "ok",
+        "data_loaded": data is not None,
+        "rows": 0 if data is None else len(data)
+    })
+
 @app.route('/api/data', methods=['GET'])
 def get_data():
     if data is not None:
@@ -32,4 +49,8 @@ def get_data():
         return jsonify({"error": "Data file not found"}), 404
 
 if __name__ == '__main__':
-    app.run(debug=True, host=host, port=port)
+    port = int(os.getenv("PORT", 3000))
+    host = os.getenv("HOST", "0.0.0.0")
+    debug = os.getenv("FLASK_DEBUG", "false").lower() == "true"
+
+    app.run(debug=debug, host=host, port=port)
