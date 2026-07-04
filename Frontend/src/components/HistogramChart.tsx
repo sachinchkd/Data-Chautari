@@ -121,7 +121,7 @@ const HistogramChart: React.FC<HistogramChartProps> = ({
             color: "#e5e7eb",
             font: {
               size: 12,
-              weight: '500',
+              weight: 500,
             },
             padding: { bottom: 20 },
           },
@@ -143,7 +143,7 @@ const HistogramChart: React.FC<HistogramChartProps> = ({
             color: "#e5e7eb",
             font: {
               size: 12,
-              weight: '500',
+              weight:500,
             },
             padding: { bottom: 10 },
           },
